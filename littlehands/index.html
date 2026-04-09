@@ -1,264 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LittleHands — Custom Photo Watch Faces for Apple Watch</title>
-    <meta name="description" content="Turn photos of your loved ones into the hands of your Apple Watch. LittleHands lets you create personal, custom watch faces from the people you care about most.">
-    <style>
-        * { box-sizing: border-box; }
-        html, body { margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
-            color: #1d1d1f;
-            line-height: 1.5;
-            background: #fff;
-            -webkit-font-smoothing: antialiased;
-        }
-        a { color: #0071e3; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LittleHands — Your Kids as Your Watch Hands</title>
+<meta name="description" content="Turn photos of your kids into the hour and minute hands of your Apple Watch face. A custom, personal watch face for Apple Watch.">
+<meta property="og:title" content="LittleHands — Your Kids as Your Watch Hands">
+<meta property="og:description" content="Turn photos of your kids into the hour and minute hands of your Apple Watch face.">
+<meta property="og:type" content="website">
+<link rel="icon" href="AppLogo.png" type="image/png">
+<style>
+  :root {
+    --golden: #E9B63B;
+    --terracotta: #C66E52;
+    --slate: #758A93;
+    --bg-light: #FAF5EF;
+    --bg-dark: #1C1A17;
+    --text-light: #1C1A17;
+    --text-dark: #FAF5EF;
+  }
 
-        nav {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9em;
-        }
-        nav .brand { font-weight: 600; color: #1d1d1f; }
-        nav a { color: #6e6e73; margin-left: 20px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .hero {
-            text-align: center;
-            padding: 60px 20px 80px;
-            background: linear-gradient(180deg, #f5f5f7 0%, #fff 100%);
-        }
-        .hero h1 {
-            font-size: 3.2em;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin: 0 0 0.2em;
-        }
-        .hero .subtitle {
-            font-size: 1.5em;
-            color: #6e6e73;
-            font-weight: 400;
-            margin: 0 auto 1.5em;
-            max-width: 600px;
-        }
-        .cta {
-            display: inline-block;
-            background: #0071e3;
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 980px;
-            font-size: 1em;
-            font-weight: 500;
-            margin-top: 10px;
-        }
-        .cta:hover { background: #0077ed; text-decoration: none; }
+  html { scroll-behavior: smooth; }
 
-        section {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        section h2 {
-            font-size: 2.2em;
-            font-weight: 700;
-            letter-spacing: -0.015em;
-            text-align: center;
-            margin: 0 0 0.3em;
-        }
-        section .lead {
-            text-align: center;
-            font-size: 1.2em;
-            color: #6e6e73;
-            max-width: 640px;
-            margin: 0 auto 3em;
-        }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-light);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            margin-top: 2em;
-        }
-        .feature {
-            background: #f5f5f7;
-            border-radius: 18px;
-            padding: 32px 28px;
-        }
-        .feature h3 {
-            font-size: 1.2em;
-            margin: 0 0 0.5em;
-            font-weight: 600;
-        }
-        .feature p {
-            margin: 0;
-            color: #515154;
-            font-size: 0.95em;
-        }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    .card { background: rgba(255,255,255,0.04); }
+    .feature { background: rgba(255,255,255,0.04); }
+    footer { border-top-color: rgba(255,255,255,0.08); }
+  }
 
-        .how {
-            background: #f5f5f7;
-        }
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 2em;
-        }
-        .step {
-            text-align: center;
-            padding: 20px;
-        }
-        .step .num {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            border-radius: 50%;
-            background: #0071e3;
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        .step h3 {
-            font-size: 1.1em;
-            margin: 0 0 0.4em;
-            font-weight: 600;
-        }
-        .step p {
-            margin: 0;
-            color: #515154;
-            font-size: 0.95em;
-        }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
 
-        .privacy-note {
-            background: #fff;
-            border: 1px solid #e5e5e7;
-            border-radius: 18px;
-            padding: 32px;
-            text-align: center;
-            max-width: 640px;
-            margin: 0 auto;
-        }
-        .privacy-note h3 {
-            margin: 0 0 0.5em;
-            font-size: 1.3em;
-        }
-        .privacy-note p {
-            margin: 0;
-            color: #515154;
-        }
+  /* Header */
+  header {
+    padding: 32px 0 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 20px;
+  }
+  .brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
-        footer {
-            background: #f5f5f7;
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 0.85em;
-            color: #6e6e73;
-            margin-top: 40px;
-        }
-        footer a { color: #515154; margin: 0 12px; }
-        footer .copyright { margin-top: 16px; color: #86868b; }
+  /* Hero */
+  .hero {
+    padding: 48px 0 72px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .hero h1 .accent { color: var(--golden); }
+  .hero p.lead {
+    font-size: clamp(17px, 2vw, 21px);
+    color: var(--slate);
+    max-width: 640px;
+    margin: 0 auto 36px;
+  }
 
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2.2em; }
-            .hero .subtitle { font-size: 1.15em; }
-            section h2 { font-size: 1.7em; }
-            section { padding: 40px 20px; }
-        }
-    </style>
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary {
+    background: var(--golden);
+    color: #1C1A17;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: inherit;
+    border: 1.5px solid currentColor;
+    opacity: 0.8;
+  }
+
+  /* Features */
+  .features {
+    padding: 64px 0;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--slate);
+    font-size: 17px;
+    margin-bottom: 48px;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .feature {
+    background: rgba(0,0,0,0.03);
+    border-radius: 18px;
+    padding: 28px;
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--golden);
+    display: grid;
+    place-items: center;
+    margin-bottom: 16px;
+    font-size: 22px;
+  }
+  .feature h3 {
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .feature p {
+    color: var(--slate);
+    font-size: 15px;
+  }
+
+  /* How it works */
+  .how {
+    padding: 64px 0;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .step {
+    text-align: center;
+    padding: 24px;
+  }
+  .step-num {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .step h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .step p {
+    color: var(--slate);
+    font-size: 15px;
+  }
+
+  /* Pricing */
+  .pricing {
+    padding: 64px 0;
+    text-align: center;
+  }
+  .card {
+    background: rgba(0,0,0,0.03);
+    border-radius: 22px;
+    padding: 40px 32px;
+    max-width: 420px;
+    margin: 32px auto 0;
+    border: 2px solid var(--golden);
+  }
+  .price {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--golden);
+    letter-spacing: -0.02em;
+  }
+  .price-sub {
+    color: var(--slate);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  .pro-list {
+    list-style: none;
+    text-align: left;
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+  .pro-list li {
+    padding: 8px 0;
+    font-size: 15px;
+  }
+  .pro-list li::before {
+    content: "✓";
+    color: var(--golden);
+    font-weight: 900;
+    margin-right: 10px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 48px 0 32px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    margin-top: 48px;
+    text-align: center;
+    color: var(--slate);
+    font-size: 14px;
+  }
+  footer .links {
+    margin-bottom: 12px;
+  }
+  footer a {
+    color: var(--slate);
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  footer a:hover { color: var(--golden); }
+</style>
 </head>
 <body>
-    <nav>
-        <a href="/" class="brand">JG Labs</a>
-        <div>
-            <a href="#features">Features</a>
-            <a href="#how">How it works</a>
-        </div>
-    </nav>
 
-    <div class="hero">
-        <h1>LittleHands</h1>
-        <p class="subtitle">Turn the people you love into the hands of your Apple Watch.</p>
-        <a href="#" class="cta">Coming soon to the App Store</a>
+<header>
+  <div class="container">
+    <div class="brand">
+      <img src="AppLogo.png" alt="LittleHands logo" onerror="this.style.display='none'">
+      <span>LittleHands</span>
     </div>
+  </div>
+</header>
 
-    <section id="features">
-        <h2>A watch face as personal as you are</h2>
-        <p class="lead">LittleHands reimagines your Apple Watch face with custom clock hands made from photos of the people and things you care about most.</p>
+<section class="hero">
+  <div class="container">
+    <h1>Your kids.<br>Your <span class="accent">watch hands</span>.</h1>
+    <p class="lead">
+      Turn photos of your children into the hour and minute hands of your Apple Watch.
+      A personal, playful watch face that keeps the ones you love closest — all day, every day.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#features">See how it works</a>
+      <a class="btn btn-secondary" href="https://apps.apple.com/app/littlehands">Download on the App Store</a>
+    </div>
+  </div>
+</section>
 
-        <div class="features">
-            <div class="feature">
-                <h3>Photo clock hands</h3>
-                <p>Choose any photo from your library and LittleHands turns it into a beautiful watch hand. Kids, pets, partners — anyone can mark the time.</p>
-            </div>
-            <div class="feature">
-                <h3>Live weather</h3>
-                <p>See current conditions right on your watch face, powered by Apple WeatherKit. A glance tells you everything you need to know.</p>
-            </div>
-            <div class="feature">
-                <h3>Designed for watchOS</h3>
-                <p>Built natively for Apple Watch with a companion iOS app. Syncs seamlessly with Watch Connectivity — no account, no cloud.</p>
-            </div>
-            <div class="feature">
-                <h3>Private by design</h3>
-                <p>Your photos never leave your device. No analytics, no tracking, no servers. Just you, your watch, and the people you love.</p>
-            </div>
-            <div class="feature">
-                <h3>LittleHands Pro</h3>
-                <p>Unlock additional customization with a one-time in-app purchase. No subscriptions, ever.</p>
-            </div>
-            <div class="feature">
-                <h3>Family friendly</h3>
-                <p>A gentle, joyful way to keep the faces of your loved ones close throughout the day.</p>
-            </div>
-        </div>
-    </section>
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Built for families</h2>
+    <p class="section-sub">A watch face as unique as the people on it.</p>
 
-    <section id="how" class="how" style="max-width: none; margin: 0;">
-        <div style="max-width: 900px; margin: 0 auto;">
-            <h2>How it works</h2>
-            <p class="lead">Get started in under a minute.</p>
-            <div class="steps">
-                <div class="step">
-                    <div class="num">1</div>
-                    <h3>Pick a photo</h3>
-                    <p>Open the iOS app and select any photo from your library.</p>
-                </div>
-                <div class="step">
-                    <div class="num">2</div>
-                    <h3>Customize</h3>
-                    <p>Crop and adjust to create the perfect clock hand.</p>
-                </div>
-                <div class="step">
-                    <div class="num">3</div>
-                    <h3>Sync to your watch</h3>
-                    <p>Your new watch face is ready on your wrist instantly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-icon">📸</div>
+        <h3>One photo, full magic</h3>
+        <p>Snap a picture of your kid with arms outstretched. LittleHands automatically detects the body and arms, and turns them into the hour and minute hands.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⌚️</div>
+        <h3>Beautiful themes</h3>
+        <p>Choose from a curated set of warm, playful watch face themes — designed to complement any photo and any outfit.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">👨‍👩‍👧‍👦</div>
+        <h3>Unlimited profiles</h3>
+        <p>Got more than one kid? Create a profile for each, and switch between them whenever you want.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <h3>Daily rotation</h3>
+        <p>Let LittleHands automatically rotate through your kids each day, so every morning brings a new smile.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌤</div>
+        <h3>Weather widget</h3>
+        <p>Glance at the current conditions right on the watch face — no extra app required.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Private by design</h3>
+        <p>All photo processing happens on your device. Nothing is uploaded, nothing is tracked, nothing leaves your iPhone.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section>
-        <div class="privacy-note">
-            <h3>Your photos stay on your device</h3>
-            <p>LittleHands processes everything locally. We don't store, upload, or access your photos. Ever.</p>
-        </div>
-    </section>
+<section class="how">
+  <div class="container">
+    <h2 class="section-title">Three steps to a custom face</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Take a photo</h3>
+        <p>A simple, front-facing photo of your kid with arms stretched out to the sides works best.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Let LittleHands do the work</h3>
+        <p>On-device machine learning detects the body and arms automatically. Fine-tune if you want — or don't.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Wear the moment</h3>
+        <p>Send the face to your Apple Watch and watch your little one wave through every minute of your day.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <div>
-            <a href="/littlehands/privacy.html">Privacy Policy</a>
-            <a href="/littlehands/terms.html">Terms of Use</a>
-            <a href="mailto:support@jglabs.app">Contact</a>
-        </div>
-        <div class="copyright">&copy; 2026 JG Labs. All rights reserved.</div>
-    </footer>
+<section class="pricing">
+  <div class="container">
+    <h2 class="section-title">Simple pricing</h2>
+    <p class="section-sub">Try it free. Unlock everything with a single purchase.</p>
+
+    <div class="card">
+      <div class="price">$1.99</div>
+      <div class="price-sub">One-time purchase · no subscription</div>
+      <ul class="pro-list">
+        <li>Unlimited profiles</li>
+        <li>Automatic daily face rotation</li>
+        <li>Weather widget on watch face</li>
+        <li>All future themes and updates</li>
+      </ul>
+      <div>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/littlehands">Get LittleHands</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="/littlehands/privacy.html">Privacy Policy</a> ·
+      <a href="/littlehands/terms.html">Terms of Use</a> ·
+      <a href="mailto:support@jglabs.app">Support</a>
+    </div>
+    <div>© 2026 JG Labs · Made with care for families.</div>
+  </div>
+</footer>
+
 </body>
 </html>
